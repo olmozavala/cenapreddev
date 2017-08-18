@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 4, 2015, 12:48:03 PM
+    Author     : angel
+*/
+
+
+@media all and (min-width: 320px) {
+    /* Style adjustments for viewports that meet the condition */
+
+    #map{
+        height: 300px;
+        width: 100%;
+        background-color: #b5d0d0;
+        -webkit-box-shadow: 4px 6px 5px 0px rgba(186,180,186,0.84);
+        -moz-box-shadow: 4px 6px 5px 0px rgba(186,180,186,0.84);
+        box-shadow: 4px 6px 5px 0px rgba(186,180,186,0.84);
+        border: 1px solid #ccc;
+}
+
+@media all and (max-width: 1980px) and (min-width: 635px){
+    /* Style adjustments for viewports that meet the condition */
+
+    #map{
+        height: 400px;
+        width: 100%;
+        background-color: #b5d0d0;
+        -webkit-box-shadow: 4px 6px 5px 0px rgba(186,180,186,0.84);
+        -moz-box-shadow: 4px 6px 5px 0px rgba(186,180,186,0.84);
+        box-shadow: 4px 6px 5px 0px rgba(186,180,186,0.84);
+        border: 1px solid #ccc;
+}
