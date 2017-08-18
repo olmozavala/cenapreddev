@@ -33,11 +33,11 @@ class JConfig {
 	public $ftp_user = '';
 	public $gzip = '0';
 	public $helpurl = 'https://help.joomla.org/proxy/index.php?option=com_help&keyref=Help{major}{minor}:{keyref}';
-	public $host = 'localhost';
+	public $host = '10.20.12.147';
 	public $lifetime = '15';
 	public $list_limit = '20';
 	public $live_site = '';
-	public $log_path = '/var/www/html/operativo/logs';
+	public $log_path = '/var/www/html/pronosticos/logs';
 	public $mailer = 'mail';
 	public $mailfrom = 'dulce.herrera@atmosfera.unam.mx';
 	public $memcache_compress = '1';
@@ -65,7 +65,7 @@ class JConfig {
 	public $smtpport = '25';
 	public $smtpsecure = 'none';
 	public $smtpuser = '';
-	public $tmp_path = '/var/www/html/operativo/tmp';
+	public $tmp_path = '/var/www/html/pronosticos/tmp';
 	public $unicodeslugs = '0';
 	public $user = 'cuauh';
 	public $mailonline = '1';

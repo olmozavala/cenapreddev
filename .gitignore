@@ -1,1 +1,3 @@
-WebSite/BACKUPS
+*.swp
+pronosticos/BACKUPS
+pronosticos/configuration.php
