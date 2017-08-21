@@ -48,7 +48,7 @@ if (!$boton_enviar)
 				$Descrip=$row['descripcion'];
 				$ImageNom=$row['image'];
                                 $modelo=$row['modelo'];
-                                $dominio=$row['modelo'];
+                                $dominio=$row['dominio'];
 			}
 			else
                         {
