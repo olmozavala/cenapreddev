@@ -185,7 +185,7 @@
 
       function draw_slide(image){
 
-        canvasContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
+        //canvasContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
         canvasContext.drawImage(image,0,0);
         canvasContext.drawImage(logo,580,380,100,100);
 
