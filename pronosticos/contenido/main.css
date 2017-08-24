@@ -1,4 +1,14 @@
 HR{
-border: 1px solid #393b3c;
+	/*border: 1px solid #393b3c;*/
 }
-~                         
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+canvas {
+	margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

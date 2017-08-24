@@ -42,6 +42,6 @@
 <script type="text/javascript">
 	$template_path = '<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>';
 </script>
-<script language="javascript" type="text/javascript" src="<?php echo $dj_path;?>lib/js/template_scripts.js"></script>
 <script language="javascript" type="text/javascript" src="<?php echo $dj_path;?>lib/js/doctextsizer.js"></script>
 <script language="javascript" type="text/javascript" src="<?php echo $dj_path;?>lib/js/styleswitch.js"></script>
+<script language="javascript" type="text/javascript" src="<?php echo $dj_path;?>lib/js/template_scripts.js"></script>
