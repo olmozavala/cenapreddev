@@ -24,9 +24,9 @@
         <form ACTION="contenido.php" class="form-inline form-horizontal col-centered" name='templateform' method="post">
               <!-- <H4> -->
             
-            <div class="form-group ">
-              <label for="dia">D&iacute;a:</label>
-              <select class="form-control" name="dia">
+            <div class="form-group">
+              <label for="dia" class="small">D&iacute;a:&nbsp;</label>
+              <select class="form-control form-control-sm" name="dia">
                 <?php 
                   $fecha_parts =explode("/", $fecha);
                   for ($i = 1; $i <=  31; $i++) 
@@ -43,8 +43,8 @@
             </div>
           
             <div class="form-group ">
-              <label for="dia">Mes:</label>
-              <select class="form-control" name="mes">
+              <label for="dia" class="small">&nbsp;Mes:&nbsp;</label>
+              <select class="form-control form-control-sm" name="mes">
                 <?php 
                   $fecha_parts =explode("/", $fecha);
                   for ($i = 1; $i <= 12; $i++) 
@@ -65,7 +65,7 @@
               <?php
                 $today = new DateTime();
                 $year = $today->format("Y");
-                echo '<label for="ano">A&ntilde;o:</label> <select class="form-control" name="ano">';
+                echo '<label for="ano" class="small">&nbsp;A&ntilde;o:&nbsp;</label> <select class="form-control form-control-sm" name="ano">';
                 $firts_y=2016;
                 for($i=$firts_y; $i <=$year; $i++)
                 {
@@ -81,10 +81,12 @@
             </div>
             
               <!--</H4>-->
-              <input class="form-control" type="submit" value="Ver" name="enviar" />
-
-              <input class="form-control" type="submit" value="Ver actual" name="actual" />
-
+              &nbsp;
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button class="form-control form-control-sm btn btn-light btn-custom btn-sm"  name="enviar">&nbsp;Ver &nbsp;</button>
+              
+              <button class="form-control btn btn-light form-control-sm btn-custom btn-sm" name="actual">&nbsp;Ver actual&nbsp;</button>
+            </div>
             
           </form>           
         </div>
@@ -103,24 +105,41 @@
     <HR>
     <div class="row">
           <FORM Method=POST Name="control_form" class="form-inline form-horizontal col-centered">
-            <i class="material-icons" onClick="go2image(first_image)" >skip_previous</i>
-            <i class="material-icons" onClick="go2image(--current_image)" >fast_rewind</i>
-            <i class="material-icons" onClick="rev()" >navigate_before</i>
-            <i class="material-icons" onClick="stop()" >pause</i>
-            <i class="material-icons" onClick="fwd()" >navigate_next</i>
-            <i class="material-icons" onClick="go2image(++current_image)" >fast_forward</i>
-            <i class="material-icons" onClick="go2image(last_image)" >skip_next</i>
-
+            <button type="button" onClick="go2image(first_image)" class="btn btn-light btn-custom"  data-toggle="tooltip" data-placement="bottom" title="Ir a la primera imagen" >
+              <i class="material-icons" >skip_previous</i>
+            </button>
+            <button type="button" onClick="go2image(--current_image)" class="btn btn-light btn-custom"  data-toggle="tooltip" data-placement="bottom" title="Imagen anterior">
+              <i class="material-icons" >fast_rewind</i>
+            </button>
+            <button type="button" onClick="rev()" class="btn btn-light btn-custom"  data-toggle="tooltip" data-placement="bottom" title="Rev">
+              <i class="material-icons" >navigate_before</i>
+            </button>
+            <button type="button" onClick="stop()" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Pausa">
+              <i class="material-icons" >pause</i>
+            </button>
+            <button type="button" onClick="fwd()" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Fwd">
+              <i class="material-icons"  >navigate_next</i>
+            </button>
+            <button type="button" onClick="go2image(++current_image)" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Imagen siguiente">
+              <i class="material-icons"  >fast_forward</i>
+            </button>
+            <button type="button" onClick="go2image(last_image)" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Ir a la última imagen">
+              <i class="material-icons"  >skip_next</i>
+            </button>
             
-            <label for="frame_nr">Imagen</label>  
-            <INPUT TYPE="text" NAME="frame_nr" VALUE="0" SIZE="2" class="form-control" onChange="go2image(parseInt(this.value))">
-            /
-            <?php echo $row_imagenes[0]; ?> 
-            <i class="material-icons" onClick="change_speed(100)" >remove</i>
-            <i class="material-icons" onClick="change_speed(-100)" >add</i>
+            <label for="frame_nr" class="small">&nbsp;Imagen&nbsp;</label>  
+            <INPUT TYPE="text" NAME="frame_nr" VALUE="0" SIZE="2" class="form-control form-control-sm" onChange="go2image(parseInt(this.value))">
+            <span class="small"> &nbsp;/<?php echo $row_imagenes[0]; ?>&nbsp; </span>
+            
+            <button type="button" class="btn btn-light btn-custom" onClick="change_speed(100)" data-toggle="tooltip" data-placement="bottom" title="Menos velocidad">
+              <i class="material-icons" >remove</i>
+            </button>
+            <button type="button" class="btn btn-light btn-custom" onClick="change_speed(-100)" data-toggle="tooltip" data-placement="bottom" title="Mas velocidad">
+              <i class="material-icons" >add</i>
+            </button>
 
-            <label for="speed">Velocidad</label>
-            <INPUT TYPE="text" NAME="speed" VALUE="0" SIZE="2" class="form-control" readonly="readonly" />
+            <label for="speed" class="small">&nbsp;Velocidad &nbsp; </label>
+            <INPUT TYPE="text" NAME="speed" VALUE="0" SIZE="2" class="form-control form-control-sm" readonly="readonly" />
      
           </FORM>              
     </div>
@@ -130,6 +149,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
     <script language="JavaScript"> 
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      });
+
       image_name = "<?php echo $ruta_completa; ?>";
       image_type = "png";                   //"gif" or "jpg" or whatever your browser can display
       image_name_increment = 1;             //Indica el aumento en el nombre de la imagen
@@ -163,8 +186,9 @@
       //the canvas
       // Testing wether the current browser supports the canvas element:
       var supportCanvas = 'getContext' in document.createElement('canvas');
-
-      if(supportCanvas){}
+      if(!supportCanvas){ 
+        //make page redirect ?
+      }
 
       myCanvas = document.getElementById('animation');
       canvasContext = myCanvas.getContext('2d');
@@ -187,8 +211,18 @@
 
         //canvasContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
         canvasContext.drawImage(image,0,0);
+        
+        var centerX = 580+49;
+        var centerY = 380+49;
+        var radius = 45;
+        canvasContext.beginPath();
+        canvasContext.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        canvasContext.fillStyle = 'white';
+        canvasContext.fill();
+        canvasContext.lineWidth = 5;
+        canvasContext.strokeStyle = '#ffffff';
+        canvasContext.stroke();
         canvasContext.drawImage(logo,580,380,100,100);
-
       }
 
       //===> displays image depending on the play mode in forward direction
