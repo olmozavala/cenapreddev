@@ -1,0 +1,39 @@
+<div class="container">
+<h1 style="text-align: center;">Modelos</h1>
+<p> </p>
+<div class="row">
+<div class="col-sm12 col-md-6 col-lg-4 text-black text-center font-weight-bold"><a href="index.php/meteorologia"><img class="d1" src="images/Portadas/pron_met.png" alt="" /></a><br /><br />
+<h6 class="font-weight-bold">Meteorologìa</h6>
+</div>
+<div class="col-sm12 col-md-6 col-lg-4 text-black text-center font-weight-bold"><a href="index.php/oleaje"><img class="d1" src="images/Portadas/pron_ole.png" alt="" width="160" height="160" /></a><br /><br />
+<h6 class="font-weight-bold">Oleaje</h6>
+</div>
+<div class="col-sm12 col-md-6 col-lg-4 text-black text-center font-weight-bold"><img class="d1" src="images/construccionmini.jpg" alt="" /><br /><br />
+<h6 class="font-weight-bold">Marea de Tormenta</h6>
+</div>
+<div class="col-xs12 col-md-6 col-lg-4 text-black text-center font-weight-bold"><a href="index.php/circulacion-oceanica"><img class="d1" src="images/Portadas/hycom.png" alt="" /></a><br /><br />
+<h6 class="font-weight-bold">Circulaciòn oceànica</h6>
+</div>
+<div class="col-xs12 col-md-6 col-lg-4 text-black text-center font-weight-bold"><a href="index.php/dispersion-de-cenizas"><img class="d1" src="images/Portadas/volcan/mass.png" alt="" /></a><br /><br />
+<h6 class="font-weight-bold">Dispersiòn de cenizas</h6>
+</div>
+<div class="col-xs12 col-md-6 col-lg-4 text-black text-center font-weight-bold"><a href="index.php/meteogramas"><img class="d1" src="images/Portadas/series_tiempo.jpg" alt="" width="161" height="146" /></a><br /><br />
+<h6 class="font-weight-bold">Meteogramas</h6>
+</div>
+<div class="col-sm12 col-md-6 col-lg-4 text-black text-center font-weight-bold"><a href="index.php/sondeos"><img class="d1" src="images/Portadas/sv_campeche_024.png" alt="" /></a><br /><br />
+<h6 class="font-weight-bold">Sondeos</h6>
+</div>
+</div>
+</div>
+<div class="container">
+<h1 style="text-align: center;">OWGIS</h1>
+<p> </p>
+<div class="row text-center">
+<div class="col-sm12 col-md-6 col-lg-6 text-black text-center font-weight-bold"><a href="http://pronostico.meteorologico.unam.mx/meteorologico/mapviewer"><img class="d1" src="images/Portadas/owgis_anim.gif" alt="" /></a><br /> <br />
+<h6 class="font-weight-bold">Pronòstico meteorològico</h6>
+</div>
+<div class="col-sm12 col-md-6 col-lg-6 text-black text-center "><a href="http://pronostico.meteorologico.unam.mx:8080/global/mapviewer"><img class="d1" src="images/Portadas/gfs_hycom.gif" alt="" /></a><br /><br />
+<h6 class="font-weight-bold">Pronòsticos globales GFS y HYCOM</h6>
+</div>
+</div>
+</div>
