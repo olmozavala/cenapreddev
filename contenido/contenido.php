@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="main.css">
   </head>
   
-  <body onLoad="launch()">
+  <body >
 
-    <div class="row text-center">
+    <!--div class="row text-center">
       <div class="col">
         <H3> 
           <font color="#393b3c" > Consulta de Pron&oacute;sticos</font> <br> 
         </H3>
       </div>
-    </div>
+    </div-->
   
     <div class="row" style="margin-left: 0px; ">
         
@@ -36,9 +36,9 @@
                         {
                             $selected="selected";
                         }
-                        echo "<option value='".sprintf("%02d", $i)."' ".$selected.">".$i."</option>";	
+                        echo "<option value='".sprintf("%02d", $i)."' ".$selected.">".$i."</option>"; 
                     }
-             	  ?>	
+                ?>  
               </select>
             </div>
           
@@ -55,9 +55,9 @@
                         {
                             $selected="selected";
                         }
-                        echo "<option value='".sprintf("%02d", $i)."' ".$selected.">".$meses[$i-1]."</option>";	
+                        echo "<option value='".sprintf("%02d", $i)."' ".$selected.">".$meses[$i-1]."</option>"; 
                     }
-             	  ?>
+                ?>
               </select>
             </div>
 
@@ -74,7 +74,7 @@
                             {
                                 $selected="selected";
                             }
-                	echo "<option value='".$i."' ".$selected.">".$i."</option>";
+                  echo "<option value='".$i."' ".$selected.">".$i."</option>";
                 }
                 echo '</select>';
               ?>
@@ -96,9 +96,9 @@
     <HR>
 
     <div class="row">
-    		<div class="col">   
+        <div class="col">   
             <!-- the animation -->
-            <canvas id="animation" width="680" height="480"></canvas>
+            <canvas id="animation" ></canvas>
             <br>
         </div>
     </div>    
@@ -150,7 +150,8 @@
 
     <script language="JavaScript"> 
       $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
+        launch();
       });
 
       image_name = "<?php echo $ruta_completa; ?>";
@@ -182,6 +183,7 @@
       status = 1;            // 0-stopped, 1-playing
       play_mode = 1;         // 0-normal, 1-loop, 2-swing
       size_valid = 0;
+      var loadCount = 1;
 
       //the canvas
       // Testing wether the current browser supports the canvas element:
@@ -193,11 +195,11 @@
       myCanvas = document.getElementById('animation');
       canvasContext = myCanvas.getContext('2d');
 
-      var logo = new Image();
+      /*var logo = new Image();
       logo.onload = function() {
         //canvasContext.drawImage(logo, 0, 0);  
       }
-      logo.src = "logo.png";
+      logo.src = "logo.png";*/
 
       //===> makes sure the first image number is not bigger than the last image number
       if (first_image > last_image)
@@ -208,11 +210,15 @@
       };
 
       function draw_slide(image){
-
-        //canvasContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
-        canvasContext.drawImage(image,0,0);
+        myCanvas.width = image.width;
+        myCanvas.height = image.height;
+        canvasContext.imageSmoothingEnabled = false;
+        console.log(image.width);
+        canvasContext.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width, image.height);
+        //canvasContext.clearRect(0, 0, myCanvas.scrollWidth, myCanvas.scrollWidth);
+        //canvasContext.drawImage(image,0,0);
         
-        var centerX = 580+49;
+        /*var centerX = 580+49;
         var centerY = 380+49;
         var radius = 45;
         canvasContext.beginPath();
@@ -222,7 +228,8 @@
         canvasContext.lineWidth = 5;
         canvasContext.strokeStyle = '#ffffff';
         canvasContext.stroke();
-        canvasContext.drawImage(logo,580,380,100,100);
+        canvasContext.drawImage(logo,580,380,100,100);*/
+
       }
 
       //===> displays image depending on the play mode in forward direction
@@ -342,24 +349,40 @@
         for (var i = 0; i <= last_image; i++){   
           theImages[i] = new Image();
          
-          if(image_name_increment*i>=100)
+          if(image_name_increment*i>=100){
             theImages[i].src = image_name + (first_image_name+(i*image_name_increment)) + "." + image_type;
-          else if(image_name_increment*i>=10)
+            theImages[i].onload = imagesloaded;
+            //theImages[i].width = 
+          }
+          else if(image_name_increment*i>=10){
             theImages[i].src = image_name + "0" + (first_image_name+(i*image_name_increment)) + "." + image_type;
-          else
+            theImages[i].onload = imagesloaded;
+          }
+          else{
             theImages[i].src = image_name + "00"+ (first_image_name+(i*image_name_increment)) +"." + image_type;
+            theImages[i].onload = imagesloaded;
+          }
              
           current_image=i;
           //document.animation.src = theImages[current_image].src;
           // Drawing the default version of the image on the canvas:
-          draw_slide(theImages[current_image]);
+          //draw_slide(theImages[current_image]);
           document.control_form.frame_nr.value = current_image;
           
-          if( i === last_image ){
+          /*if( i === last_image ){
             current_image=1;
             terminoDeCargar=true;
-          }
+          }*/
         }
+      }
+
+      //called after each image is loaded and when all images are loaded, starts the show
+      function imagesloaded() {
+        if (last_image === loadCount) {
+          terminoDeCargar = true;
+          launch();
+        }
+        loadCount++;
       }
       
       //===> sets everything once the whole page and the images are loaded (onLoad handler in <body>)
@@ -374,7 +397,6 @@
          draw_slide(theImages[current_image]);
          //document.animation.src = theImages[current_image].src;   
       }
-
     </SCRIPT>
 
   </body>
