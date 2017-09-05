@@ -44,7 +44,7 @@ if (!$boton_enviar)
             $ProductName=$row['nombre'];
             $Descrip=$row['descripcion'];
             $ImageNom=$row['image'];
-            $modelo=$row['modelo'];
+            $modelo=strtoupper($row['modelo']);
             $dominio=$row['dominio'];
           } else {
                   echo "<script> alert('El pronostico actual no existe 2')</script>";
@@ -52,18 +52,20 @@ if (!$boton_enviar)
       }
       
       $link->close();
+      //print("../../Graficas/".$modelo."/actuales/".$ProductName."/".$dominio);
 
-      $nFile=scandir("../../productos/actuales/".$modelo."/".$ProductName."/".$dominio); 
+      $nFile=scandir("../../Graficas/".$modelo."/actuales/".$ProductName."/".$dominio); 
       $lastDirectory=$nFile[2];
+      //print($lastDirectory);
          
       if($dominio){ 
-        $ruta_actual = "../../productos/actuales/".$modelo."/".$ProductName."/".$dominio."/".$lastDirectory."/".$ImageNom ;
-        $nfiles = scandir("../../productos/actuales/".$modelo."/".$ProductName."/".$dominio."/".$lastDirectory);
+        $ruta_actual = "../../Graficas/".$modelo."/actuales/".$ProductName."/".$dominio."/".$lastDirectory."/".$ImageNom ;
+        $nfiles = scandir("../../Graficas/".$modelo."/actuales/".$ProductName."/".$dominio."/".$lastDirectory);
         $row_imagenes[0] = count($nfiles)-2;
       }
       else{
-        $ruta_actual = "../../productos/actuales/".$modelo."/".$ProductName."/".$lastDirectory."/".$ImageNom ;
-        $nfiles = scandir("../../productos/actuales/".$modelo."/".$ProductName."/".$lastDirectory);
+        $ruta_actual = "../../Graficas/".$modelo."/actuales/".$ProductName."/".$lastDirectory."/".$ImageNom ;
+        $nfiles = scandir("../../Graficas/".$modelo."/actuales/".$ProductName."/".$lastDirectory);
         $row_imagenes[0] = count($nfiles)-2;
       }
       $ruta_completa = $ruta_actual;
@@ -72,7 +74,7 @@ if (!$boton_enviar)
 else
 {
     //Definiciones
-    $ruta_primera_parte = "../productos/historicos/";
+    $ruta_primera_parte = "../Graficas/historicos/";
     $carpeta = $_POST["ano"] ."_". $_POST["mes"] ."_" . $_POST["dia"]."_00"; 
     $dia_seleccionado=$_POST["dia"];
     $mes_seleccionado=$_POST["mes"];
