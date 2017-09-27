@@ -1,6 +1,8 @@
 <?php
 session_start();
 include("../connection.phtml"); 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') 
 {
    $isproduct = isset($_GET['id']) ? $_GET['id'] : false;
@@ -55,26 +57,21 @@ if (!$boton_enviar)
     }
     
    $link->close();
-         $nFile=scandir("../productos/actuales/".$modelo."/".$ProductName."/".$dominio); 
+
+         $nFile=scandir("../productos/".$modelo."/actuales/".$ProductName); 
          $lastDirectory=$nFile[2];
-       
-     if($dominio){ 
-          $ruta_actual = "../productos/actuales/".$modelo."/".$ProductName."/".$dominio."/".$lastDirectory."/".$ImageNom ;
-      $nfiles = scandir("../productos/actuales/".$modelo."/".$ProductName."/".$dominio."/".$lastDirectory);
+        
+       $ruta_actual = "../productos/".$modelo."/actuales/".$ProductName."/".$lastDirectory."/".$ImageNom ;
+        $nfiles = scandir("../productos/".$modelo."/actuales/".$ProductName."/".$lastDirectory);
       $row_imagenes[0] = count($nfiles)-2;
-      }
-      else{
-       $ruta_actual = "../productos/actuales/".$modelo."/".$ProductName."/".$lastDirectory."/".$ImageNom ;
-        $nfiles = scandir("../productos/actuales/".$modelo."/".$ProductName."/".$lastDirectory);
-      $row_imagenes[0] = count($nfiles)-2;
-    }
+    
   $ruta_completa = $ruta_actual;
    }
 }
 else
 {
     //Definiciones
-    $ruta_primera_parte = "../productos/historicos/";
+    $ruta_primera_parte = "../productos/";
     $carpeta = $_POST["ano"] ."_". $_POST["mes"] ."_" . $_POST["dia"]."_00"; 
   $dia_seleccionado=$_POST["dia"];
   $mes_seleccionado=$_POST["mes"];
@@ -106,7 +103,7 @@ else
               $modelo=$rows['nombre'];
                             $dominio=$rows['dominio'];                
                             $ruta_segunda_parte =$ProductName;  
-                            $ruta_historica = $ruta_primera_parte.$modelo."/".$carpeta."/".$ruta_segunda_parte;
+                            $ruta_historica = $ruta_primera_parte.$modelo."/historicos/".$carpeta."/".$ruta_segunda_parte;
                         if (!file_exists($ruta_historica) && !is_dir($ruta_historica)) 
               {
                 echo "<script> alert('la carpeta $ruta_historica no existe')</script>";
@@ -126,6 +123,11 @@ else
                }
         
   $link->close();
+
    }
 }
+
+
 ?>
+
+

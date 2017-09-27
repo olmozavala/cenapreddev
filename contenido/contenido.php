@@ -98,7 +98,7 @@
     <div class="row">
         <div class="col">   
             <!-- the animation -->
-            <canvas id="animation" width="680" height="480" ></canvas>
+            <canvas id="animation" ></canvas>
             <br>
         </div>
     </div>    
@@ -185,6 +185,8 @@
       size_valid = 0;
       var loadCount = 1;
       var last_image_;
+      var lewidth;
+      var leheight;
 
       //the canvas
       // Testing wether the current browser supports the canvas element:
@@ -219,24 +221,11 @@
         if(image!=false){
           
           if(image){
-            console.log(image.src);
-            canvasContext.clearRect(0, 0, 680,480);
-            canvasContext.drawImage(image,0,0,image.width, image.height,0,0,680,480);
+            //console.log(image.src);
+            canvasContext.clearRect(0, 0, lewidth,leheight);
+            canvasContext.drawImage(image,0,0,lewidth,leheight,0,0,lewidth,leheight);
           }
         }
-        
-        
-        /*var centerX = 580+49;
-        var centerY = 380+49;
-        var radius = 45;
-        canvasContext.beginPath();
-        canvasContext.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-        canvasContext.fillStyle = 'white';
-        canvasContext.fill();
-        canvasContext.lineWidth = 5;
-        canvasContext.strokeStyle = '#ffffff';
-        canvasContext.stroke();
-        canvasContext.drawImage(logo,580,380,100,100);*/
 
       }
 
@@ -354,10 +343,10 @@
       var ultimaImagenCargada = 0;
 
       function initImages(){
-        for (var i = 0; i <= last_image; i++){  
+        for (var i = 0; i <= last_image; i++){
 
               theImages[i] = new Image();
-             
+              
               if(image_name_increment*i>=100){
                 theImages[i].src = image_name + (first_image_name+(i*image_name_increment)) + "." + image_type;
                 theImages[i].onload = imagesloaded;
@@ -370,26 +359,18 @@
                 theImages[i].src = image_name + "00"+ (first_image_name+(i*image_name_increment)) +"." + image_type;
                 theImages[i].onload = imagesloaded;
               }
-              //if (typeof theImages[i].naturalWidth == "undefined" || theImages[i].naturalWidth == 0) {
-              //    theImages.splice(i, 1);
-              //}
-
               
-                 
               current_image=i;
               //document.animation.src = theImages[current_image].src;
               // Drawing the default version of the image on the canvas:
               //draw_slide(theImages[current_image]);
               document.control_form.frame_nr.value = current_image;
-              
         }
       }
 
       function imageOnError() {
           // image did not load
-
       }
-
 
       var index = 0;
       function rmBadImageCheck (items, callback){
@@ -415,15 +396,20 @@
       }
 
       var items = [/*...*/];
-
-      
-      
-
+      var justonce = 1;
       //called after each image is loaded and when all images are loaded, starts the show
       function imagesloaded() {
+        if( justonce == 1){
+          lewidth = this.width;
+          leheight = this.height;
+          myCanvas.width = this.width;
+          myCanvas.height = this.height;
+          justonce++;
+        }
+        
         if (last_image === loadCount) {
           terminoDeCargar = true;
-          //console.log('termino.');
+          //console.log('ppppppp...... '+this.width);
           launch();
         }
         loadCount++;
@@ -438,7 +424,7 @@
          // when calling rmBadImageCheck pass a callback function that accept one argument (the newItems array).
         rmBadImageCheck(theImages, function(newItems){
           // use that array here
-          console.log(newItems);
+          //console.log(newItems);
           theImages = newItems;
           last_image = theImages.length;
           document.getElementById('lastimage').innerHTML = theImages.length;
