@@ -98,7 +98,7 @@
     <div class="row">
         <div class="col">   
             <!-- the animation -->
-            <canvas id="animation" ></canvas>
+            <canvas id="animation" style="width: 80%;"></canvas>
             <br>
         </div>
     </div>    
@@ -249,7 +249,7 @@
          //document.animation.src = theImages[current_image].src;
          // Drawing the default version of the image on the canvas:
          draw_slide(theImages[current_image]);
-         document.control_form.frame_nr.value = current_image;
+         document.control_form.frame_nr.value = current_image+1;
          timeID = setTimeout("animate_fwd()", delay);
          //window.alert("Estoy en animate_fwd el ID es:"+timeID);  
       }
@@ -273,7 +273,7 @@
          };   
          //document.animation.src = theImages[current_image].src;
          draw_slide(theImages[current_image]);
-         document.control_form.frame_nr.value = current_image;
+         document.control_form.frame_nr.value = current_image+1;
          timeID = setTimeout("animate_rev()", delay);
          //window.alert("Estoy en animate_bkw el ID es:"+timeID);        
       }
@@ -320,9 +320,10 @@
              number = last_image;
          }
          current_image = number;
+         
          //document.animation.src = theImages[current_image].src;
          draw_slide(theImages[current_image]);
-         document.control_form.frame_nr.value = current_image;
+         document.control_form.frame_nr.value = current_image+1;
       }
 
       //===> "play reverse"
@@ -364,7 +365,7 @@
               //document.animation.src = theImages[current_image].src;
               // Drawing the default version of the image on the canvas:
               //draw_slide(theImages[current_image]);
-              document.control_form.frame_nr.value = current_image;
+              document.control_form.frame_nr.value = current_image+1;
         }
       }
 
@@ -426,7 +427,7 @@
           // use that array here
           //console.log(newItems);
           theImages = newItems;
-          last_image = theImages.length;
+          last_image = theImages.length-1;
           document.getElementById('lastimage').innerHTML = theImages.length;
         });
      
