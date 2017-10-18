@@ -145,12 +145,12 @@
             </button>
             
             <label for="frame_nr" class="small">&nbsp;Imagen&nbsp;</label>  
-            <INPUT TYPE="text" NAME="frame_nr" VALUE="0" SIZE="2" class="form-control form-control-sm" onChange="go2image(parseInt(this.value))">
+            <INPUT TYPE="text" NAME="frame_nr" VALUE="0" style="width: 42px;" class="form-control form-control-sm" onChange="go2image(parseInt(this.value))">
             <span class="small"> &nbsp;/<span id="lastimage"></span>&nbsp;&nbsp;&nbsp; </span>
             
 
             <label for="speed" class="small">&nbsp;Velocidad &nbsp; </label>
-            <INPUT TYPE="text" NAME="speed" SIZE="2" class="form-control form-control-sm" readonly="readonly" /> 
+            <INPUT TYPE="text" NAME="speed" SIZE="2" class="form-control form-control-sm" style="width: 42px;" readonly="readonly" /> 
      
           </FORM>              
     </div>
