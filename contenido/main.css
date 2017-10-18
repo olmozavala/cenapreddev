@@ -36,3 +36,29 @@ canvas {
     top:2px;
     border-bottom:0;
 }
+
+.loader {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #555; /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.btn_rev_pressed{
+    top:1px;
+    border-bottom-width:1px;
+    
+    color: #111;
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}

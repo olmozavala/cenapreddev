@@ -18,6 +18,12 @@
         </H3>
       </div>
     </div-->
+
+    <?php 
+      
+      $fecha = date("j/n");
+          
+    ?>
   
     <div class="row" style="margin-left: 0px; ">
         
@@ -29,6 +35,7 @@
               <select class="form-control form-control-sm" name="dia">
                 <?php 
                   $fecha_parts =explode("/", $fecha);
+
                   for ($i = 1; $i <=  31; $i++) 
                     {
                         $selected=" ";
@@ -66,7 +73,7 @@
                 $today = new DateTime();
                 $year = $today->format("Y");
                 echo '<label for="ano" class="small">&nbsp;A&ntilde;o:&nbsp;</label> <select class="form-control form-control-sm" name="ano">';
-                $firts_y=2016;
+                $firts_y=2017;
                 for($i=$firts_y; $i <=$year; $i++)
                 {
                      $selected=" ";
@@ -98,7 +105,8 @@
     <div class="row">
         <div class="col">   
             <!-- the animation -->
-            <canvas id="animation" style="width: 80%;"></canvas>
+            <div class="loader" id="loader" style="display: block;"></div>
+            <canvas id="animation" style="width: 80%; display: none;"></canvas>
             <br>
         </div>
     </div>    
@@ -108,19 +116,28 @@
             <button type="button" onClick="go2image(first_image)" class="btn btn-light btn-custom"  data-toggle="tooltip" data-placement="bottom" title="Ir a la primera imagen" >
               <i class="material-icons" >skip_previous</i>
             </button>
-            <button type="button" onClick="go2image(--current_image)" class="btn btn-light btn-custom"  data-toggle="tooltip" data-placement="bottom" title="Imagen anterior">
+            <button type="button" id="btn_frwd" style="display: none;" onClick="change_speed(100)" class="btn btn-light btn-custom"  data-toggle="tooltip" data-placement="bottom" title="Menor velocidad">
               <i class="material-icons" >fast_rewind</i>
             </button>
-            <button type="button" onClick="rev()" class="btn btn-light btn-custom"  data-toggle="tooltip" data-placement="bottom" title="Rev">
+            <button type="button" id="btn_rev" style="display: none;" onClick="rev()" class="btn btn-light btn-custom"  data-toggle="tooltip" data-placement="bottom" title="Reversa">
+              <i class="material-icons" >replay</i>
+            </button>
+            <button type="button" id="btn_prev" style="display: inline;" onClick="go2image(--current_image)" class="btn btn-light btn-custom"  data-toggle="tooltip" data-placement="bottom" title="Imagen anterior">
               <i class="material-icons" >navigate_before</i>
             </button>
-            <button type="button" onClick="stop()" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Pausa">
+            <button type="button" id="btn_stop" style="display: none;" onClick="stop()" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Pausa">
               <i class="material-icons" >pause</i>
             </button>
-            <button type="button" onClick="fwd()" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Fwd">
+
+            <button type="button" id="btn_play" style="display: inline;" onClick="fwd()" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Play">
+              <i class="material-icons" >play_arrow</i>
+            </button>
+            
+
+            <button type="button" id="btn_next" style="display: inline;" onClick="go2image(++current_image)" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Imagen siguiente">
               <i class="material-icons"  >navigate_next</i>
             </button>
-            <button type="button" onClick="go2image(++current_image)" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Imagen siguiente">
+            <button type="button" id="btn_ffwd" style="display: none;" onClick="change_speed(-100)" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Mayor velocidad">
               <i class="material-icons"  >fast_forward</i>
             </button>
             <button type="button" onClick="go2image(last_image)" class="btn btn-light btn-custom" data-toggle="tooltip" data-placement="bottom" title="Ir a la última imagen">
@@ -129,17 +146,11 @@
             
             <label for="frame_nr" class="small">&nbsp;Imagen&nbsp;</label>  
             <INPUT TYPE="text" NAME="frame_nr" VALUE="0" SIZE="2" class="form-control form-control-sm" onChange="go2image(parseInt(this.value))">
-            <span class="small"> &nbsp;/<span id="lastimage"></span>&nbsp; </span>
+            <span class="small"> &nbsp;/<span id="lastimage"></span>&nbsp;&nbsp;&nbsp; </span>
             
-            <button type="button" class="btn btn-light btn-custom" onClick="change_speed(100)" data-toggle="tooltip" data-placement="bottom" title="Menos velocidad">
-              <i class="material-icons" >remove</i>
-            </button>
-            <button type="button" class="btn btn-light btn-custom" onClick="change_speed(-100)" data-toggle="tooltip" data-placement="bottom" title="Mas velocidad">
-              <i class="material-icons" >add</i>
-            </button>
 
             <label for="speed" class="small">&nbsp;Velocidad &nbsp; </label>
-            <INPUT TYPE="text" NAME="speed" VALUE="0" SIZE="2" class="form-control form-control-sm" readonly="readonly" />
+            <INPUT TYPE="text" NAME="speed" SIZE="2" class="form-control form-control-sm" readonly="readonly" /> 
      
           </FORM>              
     </div>
@@ -149,10 +160,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
     <script language="JavaScript"> 
+
+      var terminoDeCargar = false;
+
       $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip({
+          trigger : 'hover'
+        });
         launch();
       });
+
+      function toggledisplay(elementID)
+      {
+        (function(style) {
+            style.display = style.display === 'none' ? '' : 'none';
+        })(document.getElementById(elementID).style);
+      }
 
       image_name = "<?php echo $ruta_completa; ?>";
       image_type = "jpg";                   //"gif" or "jpg" or whatever your browser can display
@@ -161,7 +184,7 @@
       first_image_name = 0;     //Representa el nombre de la primer imagen
       first_image = 0;                      //first image number
       last_image ="<?php echo $row_imagenes[0]-1; ?>";      //Representa el numero total de imagenes-1. Esto es, si last_image es 4 entonces en total son 5 imagenes
-      speed_text = 0;
+      
       var inicioPlayfwd = false;    //Controla la animacion si esta en play o en stop
       var inicioPlayBkw = false;    //Controla la animacion cuando esta en reversa
 
@@ -188,6 +211,8 @@
       var lewidth;
       var leheight;
 
+      speed_text = 1;
+
       //the canvas
       // Testing wether the current browser supports the canvas element:
       var supportCanvas = 'getContext' in document.createElement('canvas');
@@ -198,12 +223,6 @@
       myCanvas = document.getElementById('animation');
       canvasContext = myCanvas.getContext('2d');
 
-      /*var logo = new Image();
-      logo.onload = function() {
-        //canvasContext.drawImage(logo, 0, 0);  
-      }
-      logo.src = "logo.png";*/
-
       //===> makes sure the first image number is not bigger than the last image number
       if (first_image > last_image)
       {
@@ -213,15 +232,9 @@
       };
 
       function draw_slide(image){
-        /*myCanvas.width = image.width;
-        myCanvas.height = image.height;
-        canvasContext.imageSmoothingEnabled = false;
-        console.log(image.width);
-        canvasContext.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width, image.height);*/
         if(image!=false){
           
           if(image){
-            //console.log(image.src);
             canvasContext.clearRect(0, 0, lewidth,leheight);
             canvasContext.drawImage(image,0,0,lewidth,leheight,0,0,lewidth,leheight);
           }
@@ -232,6 +245,15 @@
       //===> displays image depending on the play mode in forward direction
       function animate_fwd()
       {
+        if(toggleRev == 2){
+          var element = document.getElementById("btn_rev");
+          element.classList.toggle("btn_rev_pressed");
+          element.onclick = rev;
+          toggleRev--;
+        } 
+
+        clearTimeout(timeID);
+        status=1;
          current_image++;   
          if(current_image > last_image)
          {
@@ -246,12 +268,10 @@
                current_image = first_image; //LOOP
             };      
          };   
-         //document.animation.src = theImages[current_image].src;
          // Drawing the default version of the image on the canvas:
          draw_slide(theImages[current_image]);
          document.control_form.frame_nr.value = current_image+1;
          timeID = setTimeout("animate_fwd()", delay);
-         //window.alert("Estoy en animate_fwd el ID es:"+timeID);  
       }
 
       //===> displays image depending on the play mode in reverse direction
@@ -271,11 +291,9 @@
                current_image = last_image; //LOOP
             };      
          };   
-         //document.animation.src = theImages[current_image].src;
          draw_slide(theImages[current_image]);
          document.control_form.frame_nr.value = current_image+1;
          timeID = setTimeout("animate_rev()", delay);
-         //window.alert("Estoy en animate_bkw el ID es:"+timeID);        
       }
 
       //===> changes playing speed by adding to or substracting from the delay between frames
@@ -285,9 +303,11 @@
              speed_text++;
          else
              speed_text--;
+
+         delay+=dv;  
+         //speed_text = 1/(delay/1000);
          document.control_form.speed.value = speed_text;
          
-         delay+=dv;
          if(delay > delay_max) delay = delay_max;
          if(delay < delay_min) delay = delay_min;
       }
@@ -295,8 +315,14 @@
       //===> stop the movie
       function stop()
       {       
-         //window.alert("Estoy en stop borrando el ID:"+timeID);
-         clearTimeout(timeID);          
+         clearTimeout(timeID);
+         toggledisplay('btn_play');
+         toggledisplay('btn_stop');
+         toggledisplay('btn_ffwd');
+         toggledisplay('btn_frwd');
+         toggledisplay('btn_next');
+         toggledisplay('btn_prev');          
+         toggledisplay('btn_rev');          
          status = 0;
       }
 
@@ -306,12 +332,13 @@
          stop();
          status = 1;
          animate_fwd();
+
       }
 
       //===> jumps to a given image number
       function go2image(number)
       {
-         stop();
+         //stop();
          //window.alert(number);
          if (number > last_image){
              number = first_image;
@@ -327,11 +354,25 @@
       }
 
       //===> "play reverse"
+      toggleRev = 1;
       function rev()
       {
-         stop();
+         //stop();
+         var element = document.getElementById("btn_rev");
+         element.classList.toggle("btn_rev_pressed");
+         clearTimeout(timeID);
          status = 1;
-         animate_rev();
+
+         if(toggleRev == 1){
+          animate_rev();
+          document.getElementById("btn_rev").onclick = animate_fwd;
+          toggleRev++;
+         } else {
+          animate_fwd();
+          document.getElementById("btn_rev").onclick = rev;
+          toggleRev--;
+         }
+         
       }
 
       //===> changes play mode (normal, loop, swing)
@@ -339,8 +380,7 @@
       {
          play_mode = mode;
       }
-
-      var terminoDeCargar = false;
+      
       var ultimaImagenCargada = 0;
 
       function initImages(){
@@ -408,12 +448,14 @@
           justonce++;
         }
         
-        if (last_image === loadCount) {
+        if (loadCount == last_image) {
           terminoDeCargar = true;
-          //console.log('ppppppp...... '+this.width);
-          launch();
+          toggledisplay('loader');
+          toggledisplay('animation');
+          //launch();
         }
         loadCount++;
+        
       }
       
       //===> sets everything once the whole page and the images are loaded (onLoad handler in <body>)
@@ -421,22 +463,24 @@
       {    
          if(!terminoDeCargar){
              initImages();
-         } 
-         // when calling rmBadImageCheck pass a callback function that accept one argument (the newItems array).
-        rmBadImageCheck(theImages, function(newItems){
-          // use that array here
-          //console.log(newItems);
-          theImages = newItems;
-          last_image = theImages.length-1;
-          document.getElementById('lastimage').innerHTML = theImages.length;
-        });
+         }
+          // when calling rmBadImageCheck pass a callback function that accept one argument (the newItems array).
+          rmBadImageCheck(theImages, function(newItems){
+            // use that array here
+            //console.log(newItems);
+            theImages = newItems;
+            last_image = theImages.length-1;
+            document.getElementById('lastimage').innerHTML = theImages.length;
+          });
      
          fwd();   
          
-         current_image = first_image;      
+         current_image = first_image;
+         document.control_form.speed.value = speed_text;      
+
          // Drawing the default version of the image on the canvas:
          draw_slide(theImages[current_image]);
-         //document.animation.src = theImages[current_image].src;   
+        
       }
     </SCRIPT>
 
