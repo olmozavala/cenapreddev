@@ -452,6 +452,9 @@
           terminoDeCargar = true;
           toggledisplay('loader');
           toggledisplay('animation');
+          current_image = 0;
+          document.control_form.frame_nr.value = current_image+1;
+          draw_slide(theImages[current_image]);
           //launch();
         }
         loadCount++;
@@ -473,13 +476,14 @@
             document.getElementById('lastimage').innerHTML = theImages.length;
           });
      
-         fwd();   
+         //fwd();   
+         //go2image(first_image);
          
          current_image = first_image;
          document.control_form.speed.value = speed_text;      
-
+         console.log(current_image);
          // Drawing the default version of the image on the canvas:
-         draw_slide(theImages[current_image]);
+         
         
       }
     </SCRIPT>
