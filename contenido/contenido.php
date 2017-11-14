@@ -448,7 +448,7 @@
           justonce++;
         }
         
-        if (loadCount == last_image) {
+        if (loadCount == Math.round(last_image/5) ) {
           terminoDeCargar = true;
           toggledisplay('loader');
           toggledisplay('animation');
